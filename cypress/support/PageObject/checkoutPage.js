@@ -7,7 +7,6 @@ class CheckoutPage {
     streetAddressHouse = "#billing_address_1"
     streetAddressApartment = "#billing_address_2"
     townCity = "#billing_city"
-    province = "#select2-billing_state-container"
     pinCode = "#billing_postcode"
     phone = "#billing_phone"
     email = "#billing_email"

@@ -25,7 +25,6 @@ class MyAccountPage {
 
     getMyAccountNavBar(name) {
         return cy.get(this.myAccountNavBar)
-            // .find('li')
             .contains(name)
             .should('be.visible')
     }
