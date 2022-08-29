@@ -1,0 +1,14 @@
+{
+  "firstName" : "Carter",
+  "lastName"  : "Franco",
+  "companyName" : "Star",
+  "country" : "Poland",
+  "addressHouse" : "Mark street",
+  "addressApartment" : "5",
+  "town" : "Wroclaw",
+  "postalCode" : "50-004",
+  "phone" : "6666664448",
+  "emailAddress" : "CarterFranco@gmail.com",
+  "notes" : "text text text"
+
+}
