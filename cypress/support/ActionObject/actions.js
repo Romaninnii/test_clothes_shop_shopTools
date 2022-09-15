@@ -1,8 +1,10 @@
 import CheckoutPage from "../PageObject/checkoutPage";
 import HeadPage from "../PageObject/headPage";
 
+
 const headPage = new HeadPage()
 const checkoutPage = new CheckoutPage()
+
 
 class Actions {
 

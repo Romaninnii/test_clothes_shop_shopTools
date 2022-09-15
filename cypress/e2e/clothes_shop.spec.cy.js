@@ -9,8 +9,11 @@ import product from "../fixtures/product.json"
 import CartPage from "../support/PageObject/cart"
 import CheckoutPage from "../support/PageObject/checkoutPage";
 import billingDetails from "../fixtures/billingDetails.json"
+import VerificationRequest from "../support/verificationRequest"
 
 
+
+const verificationRequest = new VerificationRequest
 const myAccountPage = new MyAccountPage()
 const navBar = new NavBar()
 const action = new Actions()
@@ -20,10 +23,11 @@ const cartPage = new CartPage()
 const checkoutPage = new CheckoutPage()
 
 
-describe('it will test UI in website', () => {
-    beforeEach('Open website', () => {
+describe('it will test a clothing store, this test check is clothes added to wishlist or cart and check is correctly bought product', () => {
+    beforeEach('Open website and hide noticeMessage', () => {
         cy.visit('https://shop.demoqa.com/')
         action.hideNoticeMessage()
+        verificationRequest.verifyStatus()
     })
 
     it('Login User with correct email and password', () => {
@@ -31,6 +35,7 @@ describe('it will test UI in website', () => {
         myAccountPage.getUserNameField().clear().type(user.name)
         myAccountPage.getPasswordField().clear().type(user.password)
         myAccountPage.getLogInButton().click()
+        verificationRequest.verifyIsCorrectUser(user)
         navBar.getNavBarButton(navBar.myAccount).click()
         myAccountPage.getMyAccountNavBar(myAccountPage.logout).click()
     })
@@ -42,26 +47,30 @@ describe('it will test UI in website', () => {
         myAccountPage.getLogInButton().click()
     })
 
-    it('Get product to wishlist ', () => {   ///доробити
+    it('Get product to wishlist and clear', () => {
         action.findProduct(product.name)
         headPage.getWishlistBtn().click()
         cy.wait(1000)
         navBar.getNavBarButton(navBar.myWishlist).click()
         verify.isProductAddedToWishlist(product)
+        verificationRequest.verifyIsProductAddedToWishlist(product)
         action.clickClearWishlist()
         verify.isWishlistClear()
+        verificationRequest.verifyIsWishlistClear(product)
     });
 
-    it('Add product in cart', () => {
+    it('Add product in cart and receive order', () => {
         action.findProduct(product.name)
         action.selectColorSizeCount(product)
         headPage.getCartBtn().click()
         action.moveToCart()
         verify.isProductAddedToCart(product)
+        verificationRequest.verifyIsProductCorrectAddedInCart(product)
         cartPage.getBtnProccedToCheck().click()
         action.fillCheckOutFields(billingDetails)
         checkoutPage.getCheckMark().click()
         checkoutPage.getPlaceOrderBtn().click()
         verify.isOrderReceived()
+        verificationRequest.verifyIsOrderReceived()
     });
 })

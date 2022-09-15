@@ -34,7 +34,7 @@ class HeadPage {
     }
 
     getWishlistBtn() {
-        cy.wait(1000)
+        cy.wait(1500)
         return cy.get(this.singleProduct)
             .find(this.wishlistBtn)
             .scrollIntoView()
