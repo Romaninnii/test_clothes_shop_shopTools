@@ -33,10 +33,10 @@ class Actions {
             .click()
     }
 
-    findProduct(name) {
+    findProduct(productName) {
         cy.get(this.searchField.close)
             .should('be.visible')
-            .type(name)
+            .type(productName.name)
         cy.get(this.searchField.open)
             .should('be.visible')
             .click()
@@ -54,7 +54,7 @@ class Actions {
     selectColorSizeCount(productName) {
         headPage.getProductColor().select(productName.color)
         headPage.getProductSize().select(productName.size)
-        headPage.getProductCountField().clear().type(productName.count)
+        headPage.getProductCountField().clear().type(productName.quantity)
     }
 
 

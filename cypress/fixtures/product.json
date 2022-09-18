@@ -1,11 +1,12 @@
 {
   "name": "Tokyo Talkies",
   "price": {
-    "old": "120",
-    "new": "100"
+    "old": "120.00",
+    "new": "100.00"
   },
   "color": "White",
   "size": "L",
-  "count": "2",
+  "quantity": "2",
+  "total": "200.00",
   "status": "In Stock"
 }

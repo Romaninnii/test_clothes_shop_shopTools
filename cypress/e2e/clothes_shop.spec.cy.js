@@ -48,7 +48,7 @@ describe('it will test a clothing store, this test check is clothes added to wis
     })
 
     it('Get product to wishlist and clear', () => {
-        action.findProduct(product.name)
+        action.findProduct(product)
         headPage.getWishlistBtn().click()
         cy.wait(1000)
         navBar.getNavBarButton(navBar.myWishlist).click()
@@ -60,7 +60,7 @@ describe('it will test a clothing store, this test check is clothes added to wis
     });
 
     it('Add product in cart and receive order', () => {
-        action.findProduct(product.name)
+        action.findProduct(product)
         action.selectColorSizeCount(product)
         headPage.getCartBtn().click()
         action.moveToCart()
@@ -71,6 +71,6 @@ describe('it will test a clothing store, this test check is clothes added to wis
         checkoutPage.getCheckMark().click()
         checkoutPage.getPlaceOrderBtn().click()
         verify.isOrderReceived()
-        verificationRequest.verifyIsOrderReceived()
+        verificationRequest.verifyIsOrderReceived(product, billingDetails)
     });
 })

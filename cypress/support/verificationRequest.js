@@ -23,8 +23,8 @@ class VerificationRequest {
         }).then((response) => {
             expect(response.status).to.eq(200)
             expect(response.body).to.contain(productName.name)
-            expect(response.body).to.contain(productName.price.old)
-            expect(response.body).to.contain(productName.price.new)
+            expect(response.body).to.contain(`</span>${productName.price.old}</span>`)
+            expect(response.body).to.contain(`</span>${productName.price.new}</span>`)
             expect(response.body).to.contain(productName.status)
         })
     }
@@ -47,19 +47,29 @@ class VerificationRequest {
         }).then((response) => {
             expect(response.status).to.eq(200)
             expect(response.body).to.contain(productName.name)
-            expect(response.body).to.contain(productName.color)
-            expect(response.body).to.contain(productName.size)
-            expect(response.body).to.contain(productName.price.new)
-            expect(response.body).to.contain(productName.count)
+            expect(response.body).to.contain(`<p>${productName.color}</p>`)
+            expect(response.body).to.contain(`<p>${productName.size}</p>`)
+            expect(response.body).to.contain(`</span>${productName.price.new}</bdi></span>`)
+            expect(response.body).to.contain(`value="${productName.quantity}"`)
+            expect(response.body).to.contain(`</span>${productName.total}</bdi></span>`)
         })
     }
 
-    verifyIsOrderReceived() {
+    verifyIsOrderReceived(productName, detail) {
         cy.request({
             method: 'GET',
-            url: 'https://shop.demoqa.com/checkout/order-received/',
+            url: 'https://shop.demoqa.com/checkout/order-received/14793/?key=wc_order_18xuPTsZwlhXe',
         }).then((response) => {
+            console.log(response.body)
             expect(response.status).to.eq(200)
+            expect(response.body).to.contain(productName.name)
+            expect(response.body).to.contain(`&nbsp;${productName.quantity}`)
+            expect(response.body).to.contain('Color:')
+                .and.contain(`${productName.color}</p>`)
+            expect(response.body).to.contain('Size:') // size
+                .and.contain(`<p>${productName.size}</p>`)
+            expect(response.body).to.contain('Note:')
+                .and.contain(`<td>${detail.notes}</td>`)
         })
     }
 }
